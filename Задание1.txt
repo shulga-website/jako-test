@@ -1,0 +1,17 @@
+Задание 1.
+-составить запрос на обновление поля value таблицы test_1, значением поля data таблицы test_2, где в поле data есть слово "TEST"
+
+UPDATE test_1
+JOIN test_2 ON test_2.type = test_1.type
+SET test_1.value = test_2.data
+WHERE test_2.data LIKE '% TEST %';
+
+- как можно оптимизировать эти таблицы
+В таблице test_2 поле type указана длина 4. Т.к. с таблицей test_1 они связаны по этому полю, можно указать test_2.type tinyint(1).
+В зависимости от задачи поле type может быть уникальным для одной из таблиц.
+Если предусматриваются большие объёмы текста в колонке test_2.data, можно создать полнотекстовый индекс для колонки test_2.data. Тогда запрос:
+
+UPDATE test_1
+JOIN test_2 ON test_2.type = test_1.type
+SET test_1.value = test_2.data
+WHERE MATCH(test_2.data) AGAINST('TEST') > 0;

@@ -1,0 +1,13 @@
+body {
+  font: 14px "Century Gothic", Futura, sans-serif;
+  margin: 20px;
+}
+
+.sklad {
+  display: flex;
+  flex-direction: column;
+}
+
+.info {
+  margin-left: 20px;
+}
